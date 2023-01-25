@@ -26,7 +26,9 @@ class Placar extends Objeto {
       this.pontos++;
     }
     retirarPenalidade() {
-      this.pontos--;
+      if (this.pontos > 0) {
+        this.pontos--;
+      }
     }
   }
   

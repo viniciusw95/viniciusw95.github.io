@@ -10,7 +10,7 @@ class Helicoptero extends Objeto {
         this.imagemAtual = 0;
 
         this.imagem = this.imagens[this.imagemAtual];
-
+    
     }
 
     checarMovimento() {

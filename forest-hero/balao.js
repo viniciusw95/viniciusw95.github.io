@@ -11,16 +11,20 @@ class Balao extends Objeto {
         this.heliChegou;
         this.indice = indice;
         this.apagado = false;
+        this.colidiu;
+        
+        this.width = 65;
+        this.height = 65;
     }
 
     mover() {
         this.y += this.velocidade;
     }
     
-    checarColisaoArvores() {
+    checarColisaoArvoresOld() {
         fundo.loadPixels();
 
-        let colidiu = new Promise((resolve) => {
+        let colidiu = new Promise((resolve, reject) => {
             let intervalo = setInterval(() => {
                 let cor = fundo.get(this.x, this.y);  
                 if (cor.toString() === COR_VERDE) {
@@ -28,7 +32,36 @@ class Balao extends Objeto {
                     this.velocidade = 0;
                     placarVermelho.adicionarPonto();
                     resolve(this);                    
+                } else if (this.distancia(helicoptero) <= 30) {
+                    reject(this);
                 }
+            }, 1);
+        });
+        return colidiu;
+    }
+
+    checarColisaoArvores() {
+        fundo.loadPixels();
+
+        let colidiu = new Promise((resolve, reject) => {
+            let intervalo = setInterval(() => {
+                let cor = fundo.get(this.x, this.y);  
+                if (cor.toString() === COR_VERDE) {
+                    clearInterval(intervalo);
+                    this.velocidade = 0;
+                    placarVermelho.adicionarPonto();
+
+                   // this.colidiu = "A";
+                    resolve(this);                    
+                } else if (this.distancia(helicoptero) <= 50) {
+                    //this.colidiu = "H";
+                    clearInterval(intervalo);
+                    this.velocidade = 0;
+                    //this.apagado = true;
+                    placarAzul.adicionarPonto();
+                    reject(this);
+                }
+                
             }, 1);
         });
         return colidiu;
@@ -67,7 +100,7 @@ class Balao extends Objeto {
                     placarVermelho.retirarPenalidade();
                     placarAzul.adicionarPonto();
 
-                }               
+                }             
             }, 100);
         });
         return espera;

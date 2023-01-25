@@ -14,7 +14,12 @@ let baloesCaidos = [];
 let baloesApagados = [];
 let baloesSoltos = [];
 
-let x = 100;
+//let x = 100;
+
+// cronometro;
+let temporizador = 800;
+let contador = 700;
+let pulo = 100;
 
 let indiceBalao = 0;
 
@@ -24,7 +29,12 @@ let help;
 let botaoUmJogador;
 let pausaTexto;
 
+// vitória ou derrota
 let pausado = false;
+let venceu = false;
+
+let pontosVencer = 25;
+let pontosPerder = 20;
 
 
 // teclas de controle
@@ -36,10 +46,12 @@ const COR_VERDE = "0,204,68,255";
 
 
 function soltarBalao() {
-    if (baloes.length <= 9) {
-        let balao = new Balao(x, 0, indiceBalao);
+    if (baloes.length <= pontosPerder - 1) {
+        let balao = new Balao(0, 0, indiceBalao);
 
-        x += balao.width;
+        balao.x = getRndInteger(balao.width, width - balao.width);
+
+        //x += balao.width;
         
         baloes.push(balao);        
 
@@ -51,51 +63,48 @@ function soltarBalao() {
     }
 }
 
-
 function soltarBalaoExistente(balaoY) {
     balaoY.x = getRndInteger(balaoY.width, width - balaoY.width);    
     return new Promise((resolve) => {
         balaoY.checarColisaoArvores()
         .then((balaoCaido) => {
-            baloesCaidos.push(balaoCaido);
-            return balaoCaido.animacaoFogo();            
-        })
-        .then((balaoCaido) => {
-            checarSePerdeu();
-            return balaoCaido.receberBombeiros();
-        })
-        .then((balaoApagado) => {
-            checarSeGanhou();
-            resolve(balaoApagado);
-        });
+                checarSePerdeu();
+                return balaoCaido.animacaoFogo();            
+            }
+        )
+        .then((balaoIncendiando) => 
+            {return balaoIncendiando.receberBombeiros();}
+        )
+        .catch((balaoCapturado) => {balaoCapturado.apagado = true;})
+        .finally(() => {checarSeGanhou();});
     });
-
-
 }
 
-
 function checarSePerdeu() {
-    if (placarVermelho.pontos == 10) {
+    if (placarVermelho.pontos == pontosPerder) {
         let p = createElement('p', 'Você perdeu!');
         p.style('color', 'red');
         p.position(280, 200);
-        noLoop();
+        noLoop();    
+        trilha.stop();
     }
 }
 
 function checarSeGanhou() {
-    if (placarAzul.pontos == 10) {
+    if (placarAzul.pontos == pontosVencer) {
         let p = createElement('p', 'Você ganhou!');
         p.style('color', 'blue');
         p.position(280, 200);
         noLoop();
+        venceu = true;
+        trilha.stop();
     }
 }
 
 function preload() {
 
     
-    trilha = loadSound("trilha.mp3");
+    trilha = loadSound("tropical-sounds.mp3");
     fundo = loadImage("fundo.png");
     fogoImagens = [];
     fogoImagens.push(loadImage("fire.png"));
@@ -141,15 +150,15 @@ function draw() {
 }
 
 function keyPressed() {
-    if (keyCode === ESC) {
+    if (keyCode === ESC && !pausado && !venceu) {
         pausado = true;
+        trilha.pause();
         mostrarPausa();
         noLoop();
-    } else if (keyCode === ENTER) {
+    } else if (keyCode === ENTER && pausado) {
         pausado = false;
+        trilha.play();
         continuarJogo();
-    } else if (keyCode == SHIFT) {
-
     }
 }
 
@@ -158,8 +167,9 @@ function mostrarMenu() {
     titulo.position(200, 150);
     titulo.style('color', 'blue');
    
-    help = createElement('p', 'Salve o máximo possível de árvores. <br/> Você ganha se salvar 10 árvores ' +
-    'e perde se deixar 10 árvores queimarem ao mesmo tempo. <br/>' +
+    help = createElement('p', 'Salve o máximo possível de árvores. <br/> Você ganha se salvar +'
+    + pontosVencer + ' árvores ' +
+    'e perde se deixar ' + pontosPerder + ' árvores queimarem ao mesmo tempo. <br/>' +
     'Aperte "A" para soltar água do helicóptero do bombeiro');
 
     botaoUmJogador = createElement('button', '1 jogador');
@@ -181,16 +191,20 @@ function continuarJogo() {
 
 function iniciarJogo() {
     titulo.style('visibility', 'hidden');
-    help.style('visibility', 'hidden');
     botaoUmJogador.style('visibility', 'hidden');
 
     loop();
 
+    trilha.loop();
+
     setInterval(() => {
-        if (!pausado) {
+        if (!pausado && contador >= temporizador) {
             soltarBalao();
+            contador = 0;
+            pulo *= 2;
         }
-    }, 3000);
+        contador += pulo;
+    }, temporizador);
 }
 
 // funçao de arredondar da w3schools
