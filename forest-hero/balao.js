@@ -20,25 +20,6 @@ class Balao extends Objeto {
     mover() {
         this.y += this.velocidade;
     }
-    
-    checarColisaoArvoresOld() {
-        fundo.loadPixels();
-
-        let colidiu = new Promise((resolve, reject) => {
-            let intervalo = setInterval(() => {
-                let cor = fundo.get(this.x, this.y);  
-                if (cor.toString() === COR_VERDE) {
-                    clearInterval(intervalo);
-                    this.velocidade = 0;
-                    placarVermelho.adicionarPonto();
-                    resolve(this);                    
-                } else if (this.distancia(helicoptero) <= 30) {
-                    reject(this);
-                }
-            }, 1);
-        });
-        return colidiu;
-    }
 
     checarColisaoArvores() {
         fundo.loadPixels();
