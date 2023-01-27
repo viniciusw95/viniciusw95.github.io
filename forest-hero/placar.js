@@ -30,5 +30,5 @@ class Placar extends Objeto {
         this.pontos--;
       }
     }
-  }
+}
   
