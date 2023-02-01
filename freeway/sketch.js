@@ -34,6 +34,8 @@ const yCALCADA_SUPERIOR = 55 * proporcao;
 
 // Sons
 let trilha;
+let somPonto;
+let somColidiu;
 
 // Controle
 let jogando = false;
@@ -45,7 +47,12 @@ function preload()
     // Carregando sons
     trilha = loadSound('sons/trilha.mp3');
     trilha.setVolume(0.15);
+    somPonto = loadSound('sons/pontos.wav');
+    somColidiu = loadSound('sons/colidiu.mp3');
+    
+    // Imagens
     fundo = loadImage('imagens/estrada.png');
+
 
     placar = new Placar(50, 12, 40, 20, color('blue'));
 
@@ -134,7 +141,8 @@ function draw()
 
         if (carros[i].tocando(pedestre))
         {
-            placar.zerarPontos();
+            placar.tirarPonto();
+            somColidiu.play();
             pedestre.y = pedestre.yInicial;
         }
     }

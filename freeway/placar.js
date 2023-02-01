@@ -34,4 +34,11 @@ class Placar {
     {
         this.pontos = 0;
     }
+    tirarPonto()
+    {
+        if (this.pontos > 0)
+        {
+            this.pontos--;
+        }
+    }
 }

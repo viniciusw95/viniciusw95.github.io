@@ -3,8 +3,9 @@ class Pedestre extends Ator
     constructor(foto, x, yInicial, width, height) 
     {
         super(foto, x, yInicial, width, height);
-        this.velocidadeY = 6;
-        this.velocidadeX = 6;
+        this.velocidadeY = 4;
+        this.velocidadeX = 4;
+        this.velocidadeYPadrao = this.velocidadeY;
         this.yInicial = yInicial;
     }
  
@@ -28,9 +29,10 @@ class Pedestre extends Ator
         if (this.y <= yCALCADA_SUPERIOR)
         {
             placar.adicionarPonto();
+            somPonto.play();
             this.y = this.yInicial;
             this.velocidadeY = 0;
-            setTimeout(() => {this.velocidadeY = 6;}, 300);
+            setTimeout(() => {this.velocidadeY = this.velocidadeYPadrao;}, 300);
         }
     }
 

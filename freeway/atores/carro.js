@@ -45,7 +45,7 @@ class Carro extends Ator
 
     sortearVelocidade()
     {
-        this.velocidadeX = sortear(6, 10) * this.sentido;
+        this.velocidadeX = sortear(5, 8) * this.sentido;
     }
 
     tocando(pedestre)
