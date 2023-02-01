@@ -44,6 +44,7 @@ function preload()
 {
     // Carregando sons
     trilha = loadSound('sons/trilha.mp3');
+    trilha.setVolume(0.15);
     fundo = loadImage('imagens/estrada.png');
 
     placar = new Placar(50, 12, 40, 20, color('blue'));
