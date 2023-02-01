@@ -1,3 +1,8 @@
 main a {
     display: block;
 }
+
+table#portfolio, table#portfolio td, table#portfolio th {
+    border: 1px solid green;
+    border-collapse: collapse;
+}
