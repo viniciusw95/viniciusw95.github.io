@@ -37,7 +37,7 @@ let pausaTexto;
 let pausado = false;
 let venceu = false;
 
-let pontosVencer = 25;
+let pontosVencer = 100;
 let pontosPerder = 20;
 
 
@@ -48,63 +48,7 @@ const TECLA_A = 65;
 
 const COR_VERDE = "0,204,68,255";
 
-
-function soltarBalao() {
-    if (baloes.length <= pontosPerder - 1) {
-        let balao = new Balao(0, 0, indiceBalao);
-
-        balao.x = getRndInteger(balao.width, width - balao.width);
-
-        //x += balao.width;
-        
-        baloes.push(balao);        
-
-        soltarBalaoExistente(balao);
-
-        indiceBalao += 1;
-
-        return balao;
-    }
-}
-
-function soltarBalaoExistente(balaoY) {
-    balaoY.x = getRndInteger(balaoY.width, width - balaoY.width);    
-    return new Promise((resolve) => {
-        balaoY.checarColisaoArvores()
-        .then((balaoCaido) => {
-                checarSePerdeu();
-                return balaoCaido.animacaoFogo();            
-            }
-        )
-        .then((balaoIncendiando) => 
-            {return balaoIncendiando.receberBombeiros();}
-        )
-        .catch((balaoCapturado) => {balaoCapturado.apagado = true;})
-        .finally(() => {checarSeGanhou();});
-    });
-}
-
-function checarSePerdeu() {
-    if (placarVermelho.pontos == pontosPerder) {
-        let p = createElement('p', 'Você perdeu!');
-        p.style('color', 'red');
-        p.position(280, 200);
-        noLoop();    
-        trilha.stop();
-    }
-}
-
-function checarSeGanhou() {
-    if (placarAzul.pontos == pontosVencer) {
-        let p = createElement('p', 'Você ganhou!');
-        p.style('color', 'blue');
-        p.position(280, 200);
-        noLoop();
-        venceu = true;
-        trilha.stop();
-    }
-}
-
+// Rotinas de pré-carregamento
 function preload() {
 
     
@@ -137,6 +81,56 @@ function setup() {
 
 }
 
+function mostrarMenu() {
+    titulo = createElement('h1', 'Forest Hero');
+    titulo.position(200, 150);
+    titulo.style('color', 'blue');
+   
+    help = createElement('p', 'Salve o máximo possível de árvores. <br/> Você ganha se salvar '
+    + pontosVencer + ' árvores ' +
+    'e perde se deixar ' + pontosPerder + ' árvores queimarem ao mesmo tempo. <br/>' +
+    'Aperte "A" para soltar água do helicóptero do bombeiro');
+
+    help.position(620, 0);
+
+    botaoUmJogador = createElement('button', '1 jogador');
+    botaoUmJogador.position(240, 220);
+    botaoUmJogador.mouseClicked(iniciarJogo);
+
+}
+
+
+function mostrarPausa() {
+    pausaTexto = createElement('p', 'Enter para continuar. . .');
+    pausaTexto.position(200, 240);
+    pausaTexto.style('visibility', 'visible');
+}
+
+function continuarJogo() {
+    pausaTexto.style('visibility', 'hidden');
+    loop();
+}
+
+// Controle do jogo (play, pause, continue)
+function iniciarJogo() {
+    titulo.style('visibility', 'hidden');
+    botaoUmJogador.style('visibility', 'hidden');
+
+    loop();
+
+    trilha.loop();
+
+    setInterval(() => {
+        if (!pausado && contador >= temporizador) {
+            soltarBalao();
+            contador = 0;
+            pulo *= 2;
+        }
+        contador += pulo;
+    }, temporizador);
+}
+
+// Atualização da tela
 function draw() {
     imageMode(CORNER);
     background(fundo);
@@ -171,52 +165,33 @@ function keyPressed() {
     }
 }
 
-function mostrarMenu() {
-    titulo = createElement('h1', 'Forest Hero');
-    titulo.position(200, 150);
-    titulo.style('color', 'blue');
-   
-    help = createElement('p', 'Salve o máximo possível de árvores. <br/> Você ganha se salvar +'
-    + pontosVencer + ' árvores ' +
-    'e perde se deixar ' + pontosPerder + ' árvores queimarem ao mesmo tempo. <br/>' +
-    'Aperte "A" para soltar água do helicóptero do bombeiro');
 
-    botaoUmJogador = createElement('button', '1 jogador');
-    botaoUmJogador.position(240, 220);
-    botaoUmJogador.mouseClicked(iniciarJogo);
 
-}
 
-function mostrarPausa() {
-    pausaTexto = createElement('p', 'Enter para continuar. . .');
-    pausaTexto.position(200, 240);
-    pausaTexto.style('visibility', 'visible');
-}
-
-function continuarJogo() {
-    pausaTexto.style('visibility', 'hidden');
-    loop();
-}
-
-function iniciarJogo() {
-    titulo.style('visibility', 'hidden');
-    botaoUmJogador.style('visibility', 'hidden');
-
-    loop();
-
-    trilha.loop();
-
-    setInterval(() => {
-        if (!pausado && contador >= temporizador) {
-            soltarBalao();
-            contador = 0;
-            pulo *= 2;
-        }
-        contador += pulo;
-    }, temporizador);
-}
 
 // funçao de arredondar da w3schools
 function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+
+function checarSePerdeu() {
+    if (placarVermelho.pontos == pontosPerder) {
+        let p = createElement('p', 'Você perdeu!');
+        p.style('color', 'red');
+        p.position(280, 200);
+        noLoop();    
+        trilha.stop();
+    }
+}
+
+function checarSeGanhou() {
+    if (placarAzul.pontos == pontosVencer) {
+        let p = createElement('p', 'Você ganhou!');
+        p.style('color', 'blue');
+        p.position(280, 200);
+        noLoop();
+        venceu = true;
+        trilha.stop();
+    }
 }

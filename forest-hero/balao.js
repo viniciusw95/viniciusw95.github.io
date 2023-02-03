@@ -13,8 +13,8 @@ class Balao extends Objeto {
         this.apagado = false;
         this.colidiu;
         
-        this.width = 65;
-        this.height = 65;
+        this.width = 50;
+        this.height = 50;
     }
 
     mover() {
@@ -103,4 +103,37 @@ class Balao extends Objeto {
         //this.velocidade = 6;
     }
 
+}
+
+function soltarBalao() {
+    if (baloes.length <= pontosPerder - 1) {
+        let balao = new Balao(0, 0, indiceBalao);
+
+        balao.x = getRndInteger(balao.width, width - balao.width);
+        
+        baloes.push(balao);        
+
+        soltarBalaoExistente(balao);
+
+        indiceBalao += 1;
+
+        return balao;
+    }
+}
+
+function soltarBalaoExistente(balaoY) {
+    balaoY.x = getRndInteger(balaoY.width, width - balaoY.width);    
+    return new Promise((resolve) => {
+        balaoY.checarColisaoArvores()
+        .then((balaoCaido) => {
+                checarSePerdeu();
+                return balaoCaido.animacaoFogo();            
+            }
+        )
+        .then((balaoIncendiando) => 
+            {return balaoIncendiando.receberBombeiros();}
+        )
+        .catch((balaoCapturado) => {balaoCapturado.apagado = true;})
+        .finally(() => {checarSeGanhou();});
+    });
 }
