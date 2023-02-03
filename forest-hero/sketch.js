@@ -1,4 +1,8 @@
+// sons
+
 let trilha;
+let agua;
+
 let balaoImagem;
 let fogoImagens;
 let baloes = [];
@@ -104,7 +108,9 @@ function checarSeGanhou() {
 function preload() {
 
     
-    trilha = loadSound("tropical-sounds.mp3");
+    trilha = loadSound("Audiorezout - Faith in Humanity.mp3");
+    agua = loadSound('water.mp3');
+
     fundo = loadImage("fundo.png");
     fogoImagens = [];
     fogoImagens.push(loadImage("fire.png"));
@@ -122,6 +128,9 @@ function setup() {
 
     placarAzul = new Placar(0, 0, 40, 20, color('blue'));
     placarVermelho = new Placar(width - 40, 0, 40, 20, color('red'));
+
+    trilha.setVolume(0.5);
+    agua.setVolume(0.4);
 
     noLoop();
     mostrarMenu();

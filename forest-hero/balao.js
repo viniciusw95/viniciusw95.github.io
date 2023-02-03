@@ -72,7 +72,9 @@ class Balao extends Objeto {
                     clearInterval(m);
                     resolve(this);
 
+                    agua.play();
                     this.apagado = true;
+
 
                     this.imagem = this.balaoIntacto;
                     this.y = 60;

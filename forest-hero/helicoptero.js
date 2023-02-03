@@ -10,6 +10,9 @@ class Helicoptero extends Objeto {
         this.imagemAtual = 0;
 
         this.imagem = this.imagens[this.imagemAtual];
+
+        this.width = 100;
+        this.height = 56;
     
     }
 
