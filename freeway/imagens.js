@@ -41,7 +41,7 @@ function carregarImagens()
         else
         {
             throw "Erro: Nome da imagem (" + nomesDosCarros[i] + ") é inválida. "
-            + "Use um dos sufixos: {-esquerda.png | -direita.png}";
+            + "Use um dos sufixos: {" + SUFIXO_ESQUERDA + " | " +  SUFIXO_DIREITA + "}";
         }
     }
 }
