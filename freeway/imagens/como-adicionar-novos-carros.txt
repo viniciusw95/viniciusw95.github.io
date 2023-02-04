@@ -1,0 +1,11 @@
+HOW-TO:
+
+Adicionar novos carros:
+- basta adicionar uma nova imagem com o padrão: carro-cor-direção.png.
+
+Exemplo:
+- carro-azul-direita.png
+- carro-azul-esquerda.png
+
+Obs.: é necessário as duas direções para cada carro novo, i.e, uma na direção direita, 
+e uma na direção esquerda, para que o jogo não tenha um erro em tempo de execução.
