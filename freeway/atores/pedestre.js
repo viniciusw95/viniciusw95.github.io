@@ -1,3 +1,9 @@
+const widthPedestre = 50 * proporcao;
+const heightPedestre = 44 * proporcao;
+
+let xPedestre = widthFundo / 2;
+let yPedestre = heightFundo - 25;
+
 class Pedestre extends Ator
 {
     constructor(foto, x, yInicial, width, height) 

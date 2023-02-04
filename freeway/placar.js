@@ -1,3 +1,8 @@
+const xPlacar = 50;
+const yPlacar = 12;
+const widthPlacar = 40;
+const heightPlacar = 20;
+
 class Placar {
     constructor(x, y, width, height, cor) {
         this.x = x;

@@ -1,3 +1,11 @@
+const widthCarros = 110 * proporcao;
+const heightCarros = 60 * proporcao;
+let yCarro = 100 * proporcao;
+let afastamentoCarros = 90 * proporcao;
+
+// Direção do carro
+const PARA_DIREITA = 1;
+const PARA_ESQUERDA = -1;
 
 class Carro extends Ator
 {

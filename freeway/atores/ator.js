@@ -1,3 +1,5 @@
+//let xAtor = widthFundo / 2;
+//let yAtor = heightFundo - 25;
 class Ator
 {
     constructor(foto, x, y, width, height) 

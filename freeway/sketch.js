@@ -1,24 +1,3 @@
-// Direções
-const PARA_DIREITA = 1;
-const PARA_ESQUERDA = -1;
-
-// Dimensões e posicionamento
-const proporcao = 0.80;
-
-const widthFundo = 964 * proporcao;
-const heightFundo = 642 * proporcao;
-
-let yCarro = 100 * proporcao;
-let afastamentoCarros = 90 * proporcao;
-
-const widthCarros = 110 * proporcao;
-const heightCarros = 60 * proporcao;
-
-const widthPedestre = 50 * proporcao;
-const heightPedestre = 44 * proporcao;
-
-const yCALCADA_SUPERIOR = 55 * proporcao;
-
 // Controle
 let jogando = false;
 let pausado = false;
@@ -39,21 +18,19 @@ function preload()
         document.write(error);
     }
 
-    placar = new Placar(50, 12, 40, 20, color('blue'));
-
 }
 
 function setup()
 {
-    // Criado carros, metade para cada via.
+    // Criado carros, metade para cada lado.
     let vias = 6;
     let carrosDireita = criarCarros(imagensCarrosDireita, vias / 2, PARA_DIREITA);
     let carrosEsquerda = criarCarros(imagensCarrosEsquerda, vias / 2, PARA_ESQUERDA);
     carros = distribuirCarrosNaPista(carrosDireita, carrosEsquerda);
 
     // Criando os atores restantes.
-    ator = new Pedestre(imagemDoAtor, widthFundo / 2, heightFundo - 25, widthPedestre, heightPedestre);
-    placar = new Placar(50, 12, 40, 20, color('blue'));
+    ator = new Pedestre(imagemDoAtor, xPedestre, yPedestre, widthPedestre, heightPedestre);
+    placar = new Placar(xPlacar, yPlacar, widthPlacar, heightPlacar, color('blue'));
 
     createCanvas(widthFundo, heightFundo);
     definirVolumesDosSons();

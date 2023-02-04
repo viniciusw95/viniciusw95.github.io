@@ -4,7 +4,7 @@ const CAMINHO_ATOR = PASTA_IMAGENS + "pedestre.png";
 const SUFIXO_DIREITA  = "-direita.png";
 const SUFIXO_ESQUERDA = "-esquerda.png";
 
-
+// Imagens do jogo
 let imagemDaEstrada;
 let imagemDoAtor;
 
