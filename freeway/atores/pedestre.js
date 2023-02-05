@@ -1,6 +1,8 @@
+// Dimensões padrões para o pedestre.
 const widthPedestre = 50 * proporcao;
 const heightPedestre = 44 * proporcao;
 
+// Localização padrão para o pedestre.
 let xPedestre = widthFundo / 2;
 let yPedestre = heightFundo - 25;
 

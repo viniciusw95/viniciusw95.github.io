@@ -9,15 +9,15 @@ const PARA_ESQUERDA = -1;
 
 class Carro extends Ator
 {
-    constructor(imagem, sentido) 
+    constructor(imagem, sentido, velocidadeXMinima, velocidadeXMaxima) 
     {
         super(null, 0, 0, widthCarros, heightCarros);
         
         this.sentido = sentido;
         this.foto = imagem;
 
-        this.velocidadeXMinima = 6;
-        this.velocidadeXMaxima = 10;
+        this.velocidadeXMinima = velocidadeXMinima;
+        this.velocidadeXMaxima = velocidadeXMaxima;
 
         this.sortearVelocidade();
     }   
@@ -74,14 +74,15 @@ class Carro extends Ator
 // Cria carros indo para direita ou para esquerda
 function criarCarros(imagemCarros, qtdCarros, sentido)
 {
-    //let totalFotos = fotosCarros.length;
     let carros = [];
     for (let i = 0; i < qtdCarros; i++) 
     {
         let imagemSorteada = sortearImagem(imagemCarros);
-        let carro = new Carro(imagemSorteada, sentido);
+        let velocidadeXMinima = 3 * i + 4;
+        let velocidadeXMaxima = velocidadeXMinima + 2;
 
-        //carro.velocidadeX = sortear(6, 10) * sentido;
+        let carro = new Carro(imagemSorteada, sentido, velocidadeXMinima, velocidadeXMaxima);
+
         carros.push(carro);
     }
     return carros;
