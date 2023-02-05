@@ -1,3 +1,4 @@
+// Considerando ator qualquer objeto que realiza uma ação no jogo
 class Ator
 {
     constructor(foto, x, y, width, height) 
