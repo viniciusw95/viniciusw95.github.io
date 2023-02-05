@@ -1,4 +1,5 @@
-// Arquivos para constantes que não se enquadram em nenhum outro arquivo (ator, carro, pedestre, etc)
+// Novas constantes usadas por todos os arquivos devem ser colocadas aqui. 
+// Caso sejam usadas por apenas um arquivo específico, colocar a constante nesse outro arquivo.
 
 // Constante para manter a proporção dos objetos
 const proporcao = 0.80;
