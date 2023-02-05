@@ -3,18 +3,18 @@ const yPlacar = 12;
 const widthPlacar = 40;
 const heightPlacar = 20;
 
-class Placar {
-    constructor(x, y, width, height, cor) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
+class Placar extends Ator {
+
+    constructor (x, y, width, height, cor) 
+    {
+        super(null, x, y, width, height);    
         this.cor = cor;
         this.raioAresta = 5;
         this.pontos = 0;
     }
     
-    mostrar() {
+    mostrar() 
+    {
         stroke(255);
         fill(this.cor);
         rect(this.x, this.y, this.width, this.height,
@@ -27,7 +27,8 @@ class Placar {
         text(this.pontos, this.x + 20, this.y + 15);
     }
 
-    adicionarPonto() {
+    adicionarPonto() 
+    {
         this.pontos++;
     }
     retirarPenalidade() {
