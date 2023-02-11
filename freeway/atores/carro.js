@@ -1,6 +1,6 @@
 const widthCarros = 110 * proporcao;
 const heightCarros = 60 * proporcao;
-let yCarro = 100 * proporcao;
+let yInicial = 90 * proporcao;
 let afastamentoCarros = 90 * proporcao;
 
 // Direção do carro
@@ -25,6 +25,11 @@ class Carro extends Ator
     movimentar()
     {
         this.x += this.velocidadeX;
+    }
+
+
+    voltaPosicaoInicial()
+    {
         // checando se carro passou atravessou totalmente pela borda esquerda do fundo
         if (this.x + this.width / 2 < 0)
         {
@@ -62,13 +67,6 @@ class Carro extends Ator
         this.velocidadeX = sortear(this.velocidadeXMinima, this.velocidadeXMaxima) * this.sentido;
     }
 
-    tocando(pedestre)
-    {
-        return this.distanciaX(pedestre) <= this.width / 2 + pedestre.width / 2 && 
-        this.distanciaY(pedestre) <= this.height / 2 + pedestre.height / 2;
-    }
-
-
 }
 
 // Cria carros indo para direita ou para esquerda
@@ -92,7 +90,7 @@ function distribuirCarrosNaPista(carrosDireita, carrosEsquerda)
 {
     // Distribuindo carros na pista
     let carros;
-    let fluxoPrimeiraVia = sortear(0, PARA_DIREITA);
+    let fluxoPrimeiraVia = sortearExtremos(PARA_ESQUERDA, PARA_DIREITA);
     if (fluxoPrimeiraVia === PARA_DIREITA) 
     {
         carros = carrosDireita.concat(carrosEsquerda);

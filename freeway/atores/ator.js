@@ -26,4 +26,9 @@ class Ator
     {
         return abs(this.y - segundoAtor.y);
     }
+    tocando(segundoAtor)
+    {
+        return this.distanciaX(segundoAtor) <= this.width / 2 + segundoAtor.width / 2 && 
+        this.distanciaY(segundoAtor) <= this.height / 2 + segundoAtor.height / 2;
+    }
 }

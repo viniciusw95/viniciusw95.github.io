@@ -71,20 +71,17 @@ function draw()
     placar.mostrar();
 
     ator.movimentar();
+    ator.marcarPonto();
     ator.mostrar();
 
     // movendo carros
     for (let i = 0; i < carros.length; i++)
     {
         carros[i].movimentar();
+        carros[i].voltaPosicaoInicial();
         carros[i].mostrar();
-
-        if (carros[i].tocando(ator))
-        {
-            placar.tirarPonto();
-            somColidiu.play();
-            ator.y = ator.yInicial;
-        }
+        // verifica se carro encostou no ator. se sim, retira ponto do ator.
+        ator.perdePontoPara(carros[i]);
     }
 
 }

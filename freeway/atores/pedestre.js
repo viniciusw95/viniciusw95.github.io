@@ -34,6 +34,10 @@ class Pedestre extends Ator
         {
             this.x += this.velocidadeX;
         }
+    }
+
+    marcarPonto()
+    {
         if (this.y <= yCALCADA_SUPERIOR)
         {
             placar.adicionarPonto();
@@ -41,7 +45,16 @@ class Pedestre extends Ator
             this.y = this.yInicial;
             this.velocidadeY = 0;
             setTimeout(() => {this.velocidadeY = this.velocidadeYPadrao;}, 300);
-        }
+        }    
     }
 
+    perdePontoPara(carro)
+    {
+        if (this.tocando(carro))
+        {
+            placar.tirarPonto();
+            somColidiu.play();
+            this.y = this.yInicial;
+        }
+    }
 }
