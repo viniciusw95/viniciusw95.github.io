@@ -1,0 +1,117 @@
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo de algoritmos</title>
+
+    <script>
+        function mostrar(id)
+        {
+            if (document.getElementById(id).style.visibility === "hidden")
+            {
+                document.getElementById(id).style.visibility = "visible";
+            }
+            else
+            {
+                document.getElementById(id).style.visibility = "hidden";
+            }
+            
+        }
+    </script>
+
+    <style>
+        table, td, th
+        {
+            border-collapse: collapse;
+            border: 1px solid black;
+        }
+    </style>
+
+</head>
+<body>
+    <h1>Vinícius Viana</h1>
+    <h2>Resumo de algoritmos</h2>
+
+    <h3>Algoritmos de ordenação</h3>
+    <table>
+        <tr>
+            <th>Nome</th>
+            <th>Melhor caso (Ω)</th>
+            <th>Pior caso (O)</th>
+            <th>Como funciona</th>
+        </tr>
+        <tr>
+            <td> Selection sort (ordenação por seleção) </td>
+            <td> Ω(n²) </td>
+            <td> O(n²) </td>
+            <td> Varre a lista de N vetores N vezes, e a cada varredura vai colocando o menor elemento no início, ate todos
+                os elementos estarem na certa.
+            </td>
+        </tr>
+        <tr>
+            <td>Bubble sort (ordenação por método bolha)</td>
+            <td> Ω(n) </td>
+            <td> O(n²) </td>
+            <td> Também varre a lista várias vezes, só que dessa vez compara dois pares de uma vez (i e j), e se estiverem fora de ordem, troca
+                os elementos de lugar. Depois vai avançando para próxima posição (i+1, j+1) sucessivamente, comparando de novo e de novo, 
+                trocando os elementos de lugar caso necessário, até chegar ao fim do vetor (i&nbsp;==&nbsp;tamanho(vetor)). Logo,
+                os elementos maiores vão sendo deslocados ('bobulhando' até o final, daí o nome) para o final do vetor.
+                E repete a varredura de novo, até que não seja contabilizada nenhuma troca naquela varredura (trocas == 0), o que garante que o vetor ficou ordenado.
+            </td>
+        </tr>
+
+        <tr>
+            <td>Merge sort (ordenação por mesclagem)</td>
+            <td> Ω(n&nbsp;*&nbsp;log&nbsp;n) </td>
+            <td> O(n&nbsp;*&nbsp;log&nbsp;n) </td>
+            <td>
+                Nessa ordenação, você basicamente precisa dividir o vetor em 2 metades, esquerda e direita. 
+                E depois de ter ordenado recursivamente as duas metades, precisará juntar essas duas partes, que 
+                agora estão ordenadas. Recursivamente quer dizer que vai precisar ir dividindo o vetor da esquerda e da direita diversas vezes, até existir
+                só 1 elemento no subvetor.
+                <button onclick="mostrar('pseudo-merge')"> Pseudocódigo para o merge sort: </button>
+            </td>
+        </tr>
+
+
+    </table>
+   
+    
+    <code id="pseudo-merge" style="visibility: hidden;">
+        <pre>
+        // Pseudocódigo para merge sort.
+        // sendo vetor[] uma declaração de um vetor.
+        // sendo vetor[i,f] um subvetor que vai da posição i (início) até f (fim).
+        funcao ordenar(vetor)
+        {
+            se (tamanho(vetor) == 1)
+            {
+                retorne vetor;
+            }
+            // ordena a parte esquerda
+            esquerda[] = ordenar(vetor[0, tamanho(vetor) / 2 - 1]);
+
+            // ordena a parte direita
+            direita[] = ordenar(vetor[tamanho(vetor) / 2, tamanho(vetor) - 1]);
+
+            // junta as partes (pseudocódigo para essa função não implementado).
+            partes_ordenadas[] = juntar_partes(esquerda, direita);
+
+            retorna partes_ordenadas;
+        }
+        
+        funcao main()
+        {
+            vetor[] = [5, 4, 3, 2, 1];
+            ordenado = ordenar(vetor);
+
+            mostrar(vetor); 
+            // deve mostrar: 
+            // [1, 2, 3, 4, 5]
+        }
+        </pre>                 
+    </code>
+
+</body>
+</html>
