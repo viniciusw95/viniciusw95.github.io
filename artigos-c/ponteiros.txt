@@ -1,0 +1,24 @@
+#include <stdio.h>
+
+int main(void)
+{
+    int calls = 4;
+
+    printf("Endereço de calls: %p \n", &calls);
+
+    printf("Armazenando endereço de calls (= %p) em ptr: \n", &calls);
+
+    int *ptr;
+    ptr = &calls;
+
+    printf("Imprimindo o valor de ptr: %p \n", ptr);
+    printf("O ponteiro ptr tambem tem um endereço: %p \n", &ptr);
+
+    printf("Imprimindo o valor de calls: %d \n", calls);
+
+    // &v - get the "address of" v, where v is a variable, whether it's a pointer or a normal variable.
+    // data_type *p; - it declares a pointer p, that points to a variable of a specific data_type.
+    // *p - "go to the address stored in p and get/set the value".
+
+    // pq é preciso declarar o tipo antes do ponteiro? se tudo é binário?
+}
